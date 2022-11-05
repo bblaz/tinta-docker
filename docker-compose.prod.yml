@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  trytond:
+    networks:
+      - proxy_network
+    # ports:
+    #   - 8000:8000
+
+networks:
+  default:
+  proxy_network:
+    name: proxy_network
+    external: true
