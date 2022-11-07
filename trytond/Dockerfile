@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         git \
     && rm -rf /var/lib/apt/lists/*
-RUN pip3 install git+https://github.com/bblaz/tinta
+RUN pip3 install git+https://github.com/bblaz/tinta@6.4
 
 COPY initialize.sh /
 COPY update.sh /
