@@ -15,5 +15,6 @@ RUN apt-get update \
 RUN pip3 install git+https://github.com/bblaz/tinta@4.6
 
 COPY initialize.sh /
+COPY update.sh /
 
 USER trytond
