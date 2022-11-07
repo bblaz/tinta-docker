@@ -55,6 +55,21 @@ services:
     env_file:
       - variables.env
 
+  web:
+    build:
+      context: ./trytond
+    container_name: tinta-web
+    command: sh -c "uwsgi --ini /uwsgi-flask.conf"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - default
+    volumes:
+      - data:/var/lib/trytond/db
+    env_file:
+      - variables.env
+
 networks:
   default:
 
