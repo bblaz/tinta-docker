@@ -15,34 +15,37 @@ services:
     env_file:
       - variables.env
 
-  # trytond-cron:
-  #   build:
-  #     context: ./trytond
-  #   container_name: trytond-cron
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - postgres
-  #     - trytond
-  #   networks:
-  #     - default
-  #   volumes:
-  #     -data:/var/lib/trytond/db
-  #   env_file:
-  #     - variables.env
+  trytond-cron:
+    build:
+      context: ./trytond
+    container_name: tinta-cron
+    command: sh -c "/run-cron.sh"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - trytond
+    networks:
+      - default
+    volumes:
+      - data:/var/lib/trytond/db
+    env_file:
+      - variables.env
 
-  # tryton-update:
-  #   build:
-  #     context: ./trytond
-  #   command: sh -c "sleep 10 && trytond-admin -d tryton --all --activate-dependencies -v && tail -f /dev/null"
-  #   restart: "no"
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - default
-  #   volumes:
-  #     - data:/var/lib/trytond/db
-  #   env_file:
-  #     - variables.env
+  trytond-worker:
+    build:
+      context: ./trytond
+    container_name: tinta-worker
+    command: sh -c "/run-worker.sh"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - trytond
+    networks:
+      - default
+    volumes:
+      - data:/var/lib/trytond/db
+    env_file:
+      - variables.env
 
   postgres:
     image: postgres:12-alpine
@@ -63,6 +66,7 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+      - trytond
     networks:
       - default
     volumes:

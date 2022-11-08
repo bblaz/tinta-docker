@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "Initializing..."
-
 set -e
 
 : ${DB_USER:=${POSTGRES_ENV_POSTGRES_USER:='postgres'}}
@@ -12,7 +10,4 @@ set -e
 
 export TRYTOND_DATABASE_URI PYTHONOPTIMIZE
 
-trytond-admin -d ${POSTGRES_DB} -p --all
-trytond-admin -d ${POSTGRES_DB} -u tinta --activate-dependencies
-
-echo "Initialization complete"
+trytond-worker -d ${POSTGRES_DB} -n 4 --logconf /logging.conf

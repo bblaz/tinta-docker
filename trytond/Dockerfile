@@ -15,6 +15,9 @@ RUN apt-get update \
 RUN pip3 install git+https://github.com/bblaz/tinta
 
 COPY initialize.sh /
+COPY logging.conf /
+COPY run-cron.sh /
+COPY run-worker.sh /
 COPY update.sh /
 COPY uwsgi-flask.conf /
 
