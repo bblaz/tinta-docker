@@ -2,6 +2,7 @@ version: '3'
 
 services:
   trytond:
+    image: tinta
     build:
       context: ./trytond
     container_name: tinta-trytond
@@ -16,8 +17,7 @@ services:
       - variables.env
 
   trytond-cron:
-    build:
-      context: ./trytond
+    image: tinta
     container_name: tinta-cron
     command: sh -c "/run-cron.sh"
     restart: unless-stopped
@@ -32,8 +32,7 @@ services:
       - variables.env
 
   trytond-worker:
-    build:
-      context: ./trytond
+    image: tinta
     container_name: tinta-worker
     command: sh -c "/run-worker.sh"
     restart: unless-stopped
@@ -59,8 +58,7 @@ services:
       - variables.env
 
   web:
-    build:
-      context: ./trytond
+    image: tinta
     container_name: tinta-web
     command: sh -c "uwsgi --ini /uwsgi-flask.conf"
     restart: unless-stopped
