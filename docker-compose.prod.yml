@@ -4,8 +4,10 @@ services:
   trytond:
     networks:
       - proxy_network
-    # ports:
-    #   - 8000:8000
+
+  web:
+    networks:
+      - proxy_network
 
 networks:
   default:
